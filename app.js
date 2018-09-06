@@ -14,7 +14,6 @@ let server = http.createServer(getFromClient);
 server.listen(8000);
 console.log('server start!!');
 
-
 function getFromClient(request,response){
 
     var url_parts=url.parse(request.url,true);
@@ -23,37 +22,12 @@ function getFromClient(request,response){
         case '/':
             response_index(request,response);
             break;
-            /*
-            var content = "これはIndexページです";
-            if(url_parts.query.msg != undefined){
-                var query_obj = 
-                content += "あなたは，「"+url_parts.query.msg+"」と送りました．";
-            }
-            var content = ejs.render(index_page,{
-            title: "Index",
-            content: query_obj,
-            });
-            response.writeHead(200,{'Content-Type': 'text/html'});
-            response.write(content);
-            response.end();
-            break;
-            */
-
+           
         case '/other':
             response_other(request,response);
             break;
 
-            /*
-            var content = ejs.render(other_page,{
-                title:"Other",
-                content:"これは新しく用意したページです",
-            })
-            response.writeHead(200,{'Content-Type': 'text/html'});
-            response.write(content);
-            response.end();
-            break;
-            */
-
+            
         case '/style.css':
             response.writeHead(200,{'Content-Type': 'text/css'});
             response.write(style_css);
