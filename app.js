@@ -50,29 +50,50 @@ var data ={
     'Ichiro' : '060-666-666',
 }
 
-
-//indexのアクセス処理
-
-function response_index(request,response){
-    var msg = "これはIndexページです．";
-    var content = ejs.render(index_page,{
-        title : "Index",
-        content : msg,
-        data : data,
-        filename:'data_item'
-
-    });
-
-    response.writeHead(200,{'Content-Type': 'text/html'});
-    response.write(content);
-    response.end();
-}
-
 var data2 = {
     'Taro':['taro@yamada', '09-999-999', 'Tokyo'],
     'Hanako':['hanako@flower', '080-888-888', 'Yokohama'],
     'Sachiko':['sachi@happy', '070-777-777', 'Nagoya'],
     'Ichiro':['ichi@baseball', '060-666-666', 'USA'],
+}
+
+var msgData = {
+    msg: 'no massage...',
+};
+
+
+//indexのアクセス処理
+
+function response_index(request,response){
+    if(request.method == 'POST'){
+        var body='';
+
+    request.on('data',(data)=>{
+        body +=data;
+    });
+
+    request.on('end',()=>{
+        msgData = qs.parse(body);
+        write_index(request,response);
+    });
+
+    }else {
+        write_index(request,response);
+    }
+}
+
+function write_index(request,response){
+    var msg = "伝言を表示します";
+    var content = ejs.render(index_page,{
+        title: "Index",
+        content: msg,
+        data: msgData,
+        filename: 'data_item',
+    });
+            response.writeHead(200,{'Content-Type': 'text/html'});
+            response.write(content);
+            response.end();
+    
 }
 
 
@@ -114,7 +135,7 @@ function response_other(request,response){
             data:data2,
             filename:'data_item'
         });
-        response.writeHead(200,{'Content-Type': 'text/html'});
+            response.writeHead(200,{'Content-Type': 'text/html'});
             response.write(content);
             response.end();
     }

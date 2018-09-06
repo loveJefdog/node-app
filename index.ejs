@@ -13,16 +13,23 @@
     </head>
     <div role="main">
         <p><%= content %></p>
-
-        <p><table>
-            <%for(var key in data){ %>
-                <%- include('data_item', {key:key,val:[data[key]]}) %>
-            <%} %>    
+        <p><table style="width:400px;">
+            <tr><th>伝言です</th></tr>
+            <tr><th><%=data.msg %></th></tr>
         </table></p>
 
-        <form method='POST', action='/other'>
+    <!---
+        <p><table> 
+        <%for(var key in data){ %>
+                    <%- include('data_item', {key:key,val:data[key]}) %>
+        <%} %>    
+        </table></p>
+
+    -->
+    
+        <form method='POST', action='/'>
             <input type="text" name="msg">
-           <input type="submit" value="Click">
+           <input type="submit" value="送信">
         </form>
         <p><a href="/other">Other Pageに移動 &gt;&gt;</a></p>
     </div>
