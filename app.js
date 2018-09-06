@@ -45,10 +45,11 @@ function getFromClient(request,response){
 
 var data ={
     'Taro' : '090-999-999',
-    'Hanako' : '090-888-888',
+    'Hanako' : '080-888-888',
     'Sachiko' : '070-777-777',
-    'Ichiro' : '060-666-666'
+    'Ichiro' : '060-666-666',
 }
+
 
 //indexのアクセス処理
 
@@ -58,6 +59,7 @@ function response_index(request,response){
         title : "Index",
         content : msg,
         data : data,
+        filename:'data_item'
 
     });
 
@@ -66,10 +68,18 @@ function response_index(request,response){
     response.end();
 }
 
-//otherのアクセス処理
+var data2 = {
+    'Taro':['taro@yamada', '09-999-999', 'Tokyo'],
+    'Hanako':['hanako@flower', '080-888-888', 'Yokohama'],
+    'Sachiko':['sachi@happy', '070-777-777', 'Nagoya'],
+    'Ichiro':['ichi@baseball', '060-666-666', 'USA'],
+}
+
+
 
 function response_other(request,response){
     var msg = 'これは，Otherページです．';
+    
 
     //POSTアクセス時の処理
     if(request.method =='POST'){
@@ -87,6 +97,8 @@ function response_other(request,response){
             var content =ejs.render(other_page,{
                 title:"Other",
                 content:msg,
+                data:data2,
+                filename:'data_item'
             });
 
             response.writeHead(200,{'Content-Type': 'text/html'});
@@ -95,10 +107,12 @@ function response_other(request,response){
         });
     //GETアクセス時の処理
     }else{
-        var msg = "ページがありません．";
+        var msg = "メッセージはありません．";
         var content = ejs.render(other_page,{
             title : "Other",
             content : msg,
+            data:data2,
+            filename:'data_item'
         });
         response.writeHead(200,{'Content-Type': 'text/html'});
             response.write(content);
