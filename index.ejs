@@ -24,6 +24,10 @@
     </head>
     <div role="main">
         <p><%= content %></p>
+        <form method='POST', action='/other'>
+            <input type="text" name="msg">
+           <input type="submit" value="Click">
+        </form>
         <p><a href="/other">Other Pageに移動 &gt;&gt;</a></p>
     </div>
 </body>
